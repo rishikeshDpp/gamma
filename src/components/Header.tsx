@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import SimpleThemeToggle from './SimpleThemeToggle';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +24,6 @@ export default function Header() {
             <Link href="/contact" className="text-white hover:text-gray-200 transition-colors drop-shadow-lg">
               Contact
             </Link>
-            <SimpleThemeToggle />
           </nav>
 
           <button
@@ -50,9 +48,6 @@ export default function Header() {
               <Link href="/contact" className="text-white hover:text-gray-200 transition-colors">
                 Contact
               </Link>
-              <div className="pt-2">
-                <SimpleThemeToggle />
-              </div>
             </nav>
           </div>
         )}

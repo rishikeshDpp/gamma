@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import AdminButton from '@/components/AdminButton';
 
 export default function About() {
   return (
@@ -88,6 +89,8 @@ export default function About() {
           </div>
         </div>
       </div>
+      
+      <AdminButton />
     </main>
   );
 }

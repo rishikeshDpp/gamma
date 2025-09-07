@@ -1,6 +1,6 @@
 import ImageGallery from "@/components/ImageGallery";
 import ImageSlideshow from "@/components/ImageSlideshow";
-import AdminButton from "@/components/AdminButton";
+import ThemeToggleButton from "@/components/ThemeToggleButton";
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
           
           <ImageGallery />
           
-          <AdminButton />
+          <ThemeToggleButton />
         </div>
       </section>
     </main>

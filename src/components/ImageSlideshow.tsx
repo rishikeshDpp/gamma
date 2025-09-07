@@ -50,81 +50,69 @@ const slideshowImages = [
 
 export default function ImageSlideshow() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
+  // Image change effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentImageIndex((prevIndex) => 
-          prevIndex === slideshowImages.length - 1 ? 0 : prevIndex + 1
-        );
-        setIsTransitioning(false);
-      }, 100); // Small delay to ensure smooth transition
-    }, 3000); // Change image every 3 seconds
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === slideshowImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 8000); // Change image every 8 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Independent text change effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prevIndex) => 
+        prevIndex === slideshowImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Change text every 5 seconds
 
     return () => clearInterval(interval);
   }, []);
 
   const goToSlide = (index: number) => {
-    if (index !== currentImageIndex) {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentImageIndex(index);
-        setIsTransitioning(false);
-      }, 100);
-    }
+    setCurrentImageIndex(index);
   };
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      {/* Slideshow Images */}
-      {slideshowImages.map((image, index) => (
-        <div
-          key={image.id}
-          className={`absolute inset-0 transition-opacity duration-2000 ease-in-out ${
-            index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <img
-            src={image.src}
-            alt={image.alt}
-            className="absolute inset-0 w-full h-full object-cover z-0"
-            onLoad={() => console.log('Slideshow image loaded:', image.src)}
-            onError={(e) => console.error('Slideshow image failed:', image.src, e)}
-          />
+      {/* Current Image */}
+      <div className="absolute inset-0">
+        <img
+          src={slideshowImages[currentImageIndex].src}
+          alt={slideshowImages[currentImageIndex].alt}
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          onLoad={() => console.log('Slideshow image loaded:', slideshowImages[currentImageIndex].src)}
+          onError={(e) => console.error('Slideshow image failed:', slideshowImages[currentImageIndex].src, e)}
+        />
+      </div>
+      
+      {/* Text Content - Independent of Images */}
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="text-center text-white px-4 relative z-20">
+          {/* Title - Changes with slideshow */}
+          <h1 className="text-5xl md:text-7xl font-bold mb-4 drop-shadow-lg">
+            {slideshowImages[currentTextIndex].title}
+          </h1>
           
-          {/* Content */}
-          <div className="absolute inset-0 flex items-center justify-center z-10">
-            <div className="text-center text-white px-4 relative z-20">
-              <h1 className={`text-5xl md:text-7xl font-bold mb-4 drop-shadow-lg transition-all duration-1000 ${
-                index === currentImageIndex && !isTransitioning 
-                  ? 'opacity-100 transform translate-y-0' 
-                  : 'opacity-0 transform translate-y-8'
-              }`}>
-                {image.title}
-              </h1>
-              <p className={`text-xl md:text-2xl mb-8 drop-shadow-lg transition-all duration-1000 delay-300 ${
-                index === currentImageIndex && !isTransitioning 
-                  ? 'opacity-100 transform translate-y-0' 
-                  : 'opacity-0 transform translate-y-8'
-              }`}>
-                {image.subtitle}
-              </p>
-              <button 
-                onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
-                className={`bg-white text-gray-900 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-1000 delay-600 shadow-lg ${
-                  index === currentImageIndex && !isTransitioning 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-8'
-                }`}
-              >
-                Explore Gallery
-              </button>
-            </div>
-          </div>
+          {/* Subtitle - Changes with slideshow */}
+          <p className="text-xl md:text-2xl mb-8 drop-shadow-lg">
+            {slideshowImages[currentTextIndex].subtitle}
+          </p>
+          
+          {/* CTA Button - Static, exempt from slideshow */}
+          <button 
+            onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-white text-gray-900 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+          >
+            Explore Gallery
+          </button>
         </div>
-      ))}
+      </div>
 
       {/* Navigation Dots */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">

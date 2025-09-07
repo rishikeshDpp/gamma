@@ -9,7 +9,8 @@ export default function ImageUpload() {
   const [imageData, setImageData] = useState({
     title: '',
     category: '',
-    description: ''
+    description: '',
+    aspectRatio: 'landscape'
   });
 
   const handleDrag = (e: React.DragEvent) => {
@@ -60,7 +61,7 @@ export default function ImageUpload() {
     
     // Reset form
     setUploadedFiles([]);
-    setImageData({ title: '', category: '', description: '' });
+    setImageData({ title: '', category: '', description: '', aspectRatio: 'landscape' });
     setUploading(false);
     
     alert('Images uploaded successfully!');
@@ -140,11 +141,26 @@ export default function ImageUpload() {
             onChange={(e) => setImageData({ ...imageData, category: e.target.value })}
           >
             <option value="">Select a category</option>
-            <option value="Nature">Nature</option>
-            <option value="Urban">Urban</option>
-            <option value="Abstract">Abstract</option>
-            <option value="Portrait">Portrait</option>
-            <option value="Landscape">Landscape</option>
+            <option value="F1 Teams">F1 Teams</option>
+            <option value="F1 Circuits">F1 Circuits</option>
+            <option value="F1 Drivers">F1 Drivers</option>
+            <option value="F1 Action">F1 Action</option>
+            <option value="F1 Technology">F1 Technology</option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="aspectRatio" className="block text-sm font-medium text-gray-700">
+            Aspect Ratio
+          </label>
+          <select
+            id="aspectRatio"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={imageData.aspectRatio}
+            onChange={(e) => setImageData({ ...imageData, aspectRatio: e.target.value })}
+          >
+            <option value="landscape">Landscape (Wide)</option>
+            <option value="portrait">Portrait (Tall)</option>
           </select>
         </div>
 

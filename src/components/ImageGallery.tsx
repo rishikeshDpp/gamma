@@ -3,84 +3,95 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-// Local image data
+// Local image data with aspect ratio information
 const sampleImages = [
   {
     id: 1,
     src: '/images/0r7v2dplfrkf1.jpeg',
     alt: 'F1 car racing',
     title: 'Thunder & Lightning',
-    category: 'F1 Teams'
+    category: 'F1 Teams',
+    aspectRatio: 'landscape' // width > height
   },
   {
     id: 2,
     src: '/images/57zj8oixg8t91.jpg',
     alt: 'F1 circuit',
     title: 'The Crown Jewel',
-    category: 'F1 Circuits'
+    category: 'F1 Circuits',
+    aspectRatio: 'landscape'
   },
   {
     id: 3,
     src: '/images/5nbnmjaguss91.jpg',
     alt: 'F1 driver',
     title: 'Racing Royalty',
-    category: 'F1 Drivers'
+    category: 'F1 Drivers',
+    aspectRatio: 'portrait' // height > width
   },
   {
     id: 4,
     src: '/images/7dg1qqpbvh251.webp',
     alt: 'F1 pit stop',
     title: 'Lightning Fast',
-    category: 'F1 Action'
+    category: 'F1 Action',
+    aspectRatio: 'landscape'
   },
   {
     id: 5,
     src: '/images/bd7x89nz4abf1.jpeg',
     alt: 'F1 car detail',
     title: 'Scuderia Passion',
-    category: 'F1 Teams'
+    category: 'F1 Teams',
+    aspectRatio: 'portrait'
   },
   {
     id: 6,
     src: '/images/cwuivmavz5o31.jpg',
     alt: 'F1 track',
     title: 'Home of Heroes',
-    category: 'F1 Circuits'
+    category: 'F1 Circuits',
+    aspectRatio: 'landscape'
   },
   {
     id: 7,
     src: '/images/fmx4sexy53n71.jpg',
     alt: 'F1 start',
     title: 'The Rush Begins',
-    category: 'F1 Action'
+    category: 'F1 Action',
+    aspectRatio: 'landscape'
   },
   {
     id: 8,
     src: '/images/g91cgpuo9hmf1.jpeg',
     alt: 'F1 driver helmet',
     title: 'Champion Spirit',
-    category: 'F1 Drivers'
+    category: 'F1 Drivers',
+    aspectRatio: 'portrait'
   },
   {
     id: 9,
     src: '/images/j4s0c9cku6z51.jpg',
     alt: 'F1 car aerodynamics',
     title: 'Aerodynamic Art',
-    category: 'F1 Technology'
+    category: 'F1 Technology',
+    aspectRatio: 'landscape'
   },
   {
     id: 10,
     src: '/images/qx4y0k08w0if1.jpeg',
     alt: 'F1 podium',
     title: 'Victory Rush',
-    category: 'F1 Action'
+    category: 'F1 Action',
+    aspectRatio: 'portrait'
   },
   {
     id: 11,
     src: '/images/rw3rua0emh371.jpg',
     alt: 'F1 car close-up',
     title: 'Silver Arrow',
-    category: 'F1 Teams'
+    category: 'F1 Teams',
+    aspectRatio: 'landscape'
   }
 ];
 
@@ -114,20 +125,22 @@ export default function ImageGallery() {
       </div>
 
       {/* Image Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[256px]">
         {filteredImages.map((image) => (
           <div
             key={image.id}
-            className="group cursor-pointer"
+            className={`group cursor-pointer ${
+              image.aspectRatio === 'portrait' ? 'md:row-span-2' : ''
+            }`}
             onClick={() => setSelectedImage(image)}
           >
-            <div className="relative overflow-hidden rounded-lg shadow-lg dark:shadow-gray-800/50 group-hover:shadow-xl dark:group-hover:shadow-gray-700/50 transition-shadow">
+            <div className="relative overflow-hidden rounded-lg shadow-lg dark:shadow-gray-800/50 group-hover:shadow-xl dark:group-hover:shadow-gray-700/50 transition-shadow h-full">
               <Image
                 src={image.src}
                 alt={image.alt}
                 width={400}
-                height={256}
-                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                height={image.aspectRatio === 'portrait' ? 512 : 256}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 onLoad={() => console.log('Gallery image loaded:', image.src)}
                 onError={(e) => console.error('Gallery image failed:', image.src, e)}
               />

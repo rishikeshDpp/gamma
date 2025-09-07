@@ -2,94 +2,105 @@
 
 import { useState } from 'react';
 
-// Local image data
+// Local image data with aspect ratio information
 const sampleImages = [
   {
     id: 1,
     src: '/images/0r7v2dplfrkf1.jpeg',
-    alt: 'Beautiful landscape',
-    title: 'Mountain Vista',
-    category: 'Nature',
+    alt: 'F1 car racing',
+    title: 'Thunder & Lightning',
+    category: 'F1 Teams',
+    aspectRatio: 'landscape',
     uploadDate: '2024-01-15'
   },
   {
     id: 2,
     src: '/images/57zj8oixg8t91.jpg',
-    alt: 'Urban architecture',
-    title: 'City Architecture',
-    category: 'Urban',
+    alt: 'F1 circuit',
+    title: 'The Crown Jewel',
+    category: 'F1 Circuits',
+    aspectRatio: 'landscape',
     uploadDate: '2024-01-14'
   },
   {
     id: 3,
     src: '/images/5nbnmjaguss91.jpg',
-    alt: 'Ocean waves',
-    title: 'Ocean Waves',
-    category: 'Nature',
+    alt: 'F1 driver',
+    title: 'Racing Royalty',
+    category: 'F1 Drivers',
+    aspectRatio: 'portrait',
     uploadDate: '2024-01-13'
   },
   {
     id: 4,
     src: '/images/7dg1qqpbvh251.webp',
-    alt: 'Abstract art',
-    title: 'Abstract Expression',
-    category: 'Abstract',
+    alt: 'F1 pit stop',
+    title: 'Lightning Fast',
+    category: 'F1 Action',
+    aspectRatio: 'landscape',
     uploadDate: '2024-01-12'
   },
   {
     id: 5,
     src: '/images/bd7x89nz4abf1.jpeg',
-    alt: 'Forest path',
-    title: 'Forest Path',
-    category: 'Nature',
+    alt: 'F1 car detail',
+    title: 'Scuderia Passion',
+    category: 'F1 Teams',
+    aspectRatio: 'portrait',
     uploadDate: '2024-01-11'
   },
   {
     id: 6,
     src: '/images/cwuivmavz5o31.jpg',
-    alt: 'Modern building',
-    title: 'Modern Design',
-    category: 'Urban',
+    alt: 'F1 track',
+    title: 'Home of Heroes',
+    category: 'F1 Circuits',
+    aspectRatio: 'landscape',
     uploadDate: '2024-01-10'
   },
   {
     id: 7,
     src: '/images/fmx4sexy53n71.jpg',
-    alt: 'Desert dunes',
-    title: 'Desert Landscape',
-    category: 'Nature',
+    alt: 'F1 start',
+    title: 'The Rush Begins',
+    category: 'F1 Action',
+    aspectRatio: 'landscape',
     uploadDate: '2024-01-09'
   },
   {
     id: 8,
     src: '/images/g91cgpuo9hmf1.jpeg',
-    alt: 'Street art',
-    title: 'Urban Art',
-    category: 'Urban',
+    alt: 'F1 driver helmet',
+    title: 'Champion Spirit',
+    category: 'F1 Drivers',
+    aspectRatio: 'portrait',
     uploadDate: '2024-01-08'
   },
   {
     id: 9,
     src: '/images/j4s0c9cku6z51.jpg',
-    alt: 'Geometric patterns',
-    title: 'Geometric Design',
-    category: 'Abstract',
+    alt: 'F1 car aerodynamics',
+    title: 'Aerodynamic Art',
+    category: 'F1 Technology',
+    aspectRatio: 'landscape',
     uploadDate: '2024-01-07'
   },
   {
     id: 10,
     src: '/images/qx4y0k08w0if1.jpeg',
-    alt: 'Waterfall',
-    title: 'Cascading Falls',
-    category: 'Nature',
+    alt: 'F1 podium',
+    title: 'Victory Rush',
+    category: 'F1 Action',
+    aspectRatio: 'portrait',
     uploadDate: '2024-01-06'
   },
   {
     id: 11,
     src: '/images/rw3rua0emh371.jpg',
-    alt: 'Scenic view',
-    title: 'Beautiful Scene',
-    category: 'Nature',
+    alt: 'F1 car close-up',
+    title: 'Silver Arrow',
+    category: 'F1 Teams',
+    aspectRatio: 'landscape',
     uploadDate: '2024-01-05'
   }
 ];
@@ -99,7 +110,7 @@ export default function ImageManager() {
   const [selectedImages, setSelectedImages] = useState<number[]>([]);
   const [filter, setFilter] = useState('All');
 
-  const categories = ['All', 'Nature', 'Urban', 'Abstract', 'Portrait', 'Landscape'];
+  const categories = ['All', 'F1 Teams', 'F1 Circuits', 'F1 Drivers', 'F1 Action', 'F1 Technology'];
   
   const filteredImages = filter === 'All' 
     ? images 
@@ -209,6 +220,7 @@ export default function ImageManager() {
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-2">
               <div className="text-xs font-medium truncate">{image.title}</div>
               <div className="text-xs opacity-75">{image.category}</div>
+              <div className="text-xs opacity-75 capitalize">{image.aspectRatio}</div>
             </div>
           </div>
         ))}
