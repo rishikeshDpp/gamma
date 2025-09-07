@@ -115,8 +115,8 @@ export default function ImageGallery() {
             onClick={() => setSelectedCategory(category)}
             className={`px-6 py-2 rounded-full transition-colors ${
               selectedCategory === category
-                ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
-                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600'
+                ? 'bg-white text-black'
+                : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
             }`}
           >
             {category}
@@ -134,7 +134,7 @@ export default function ImageGallery() {
             }`}
             onClick={() => setSelectedImage(image)}
           >
-            <div className="relative overflow-hidden rounded-lg shadow-lg dark:shadow-gray-800/50 group-hover:shadow-xl dark:group-hover:shadow-gray-700/50 transition-shadow h-full">
+            <div className="relative overflow-hidden rounded-lg shadow-lg shadow-gray-800/50 group-hover:shadow-xl group-hover:shadow-gray-700/50 transition-shadow h-full">
               <Image
                 src={image.src}
                 alt={image.alt}
